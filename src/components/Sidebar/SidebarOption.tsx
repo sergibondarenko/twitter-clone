@@ -1,4 +1,5 @@
 import React from 'react';
+import { SvgIconProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { mainColor } from '../../constants/css';
 
@@ -27,7 +28,13 @@ const useStyles = makeStyles({
   }
 });
 
-export function SidebarOption({ isActive, text, Icon }) {
+interface ISidebarOptionProp {
+  isActive?: boolean;
+  text: string;
+  Icon: (props: SvgIconProps) => JSX.Element;
+}
+
+export function SidebarOption({ isActive, text, Icon }: ISidebarOptionProp) {
   const cssClasses = useStyles();
 
   return (

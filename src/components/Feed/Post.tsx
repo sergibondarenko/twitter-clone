@@ -34,6 +34,7 @@ const useStyles = makeStyles({
     color: mainColor,
     fontSize: '14px !important'
   },
+  post__header: {},
   post__headerSpecial: {
     fontWeight: 600,
     fontSize: '12px',
@@ -54,6 +55,15 @@ const useStyles = makeStyles({
   }
 });
 
+interface IPostProp {
+  displayName: string;
+  userName: string;
+  wasVerified: boolean;
+  text: string;
+  imageLink: string;
+  avatarLink: string;
+}
+
 export const Post = forwardRef(({
   displayName,
   userName,
@@ -61,7 +71,7 @@ export const Post = forwardRef(({
   text,
   imageLink,
   avatarLink
-}, ref) => {
+}: IPostProp, ref: any) => {
   const cssClasses = useStyles();
 
   return (

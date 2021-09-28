@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PostService } from '../../services';
-import { postDoc } from './postDoc';
+import { IPostDoc } from '../../services/PostDoc';
 import { mainColor, mainBackgroundColor } from '../../constants/css';
 
 const useStyles = makeStyles({
@@ -29,8 +29,8 @@ const useStyles = makeStyles({
     backgroundColor: mainColor,
     border: 'none !important',
     color: 'white !important',
-    fontWeight: '900 !important',
-    textTransform: 'inherit !important',
+    fontWeight: '900 !important' as any,
+    textTransform: 'inherit !important' as any,
     borderRadius: '30px !important',
     height: '40px !important',
     width: '80px',
@@ -43,7 +43,12 @@ const useStyles = makeStyles({
   }
 });
 
-export function TweetBoxText({ value, onChange }) {
+interface ITweetBoxTextProp {
+  value: string,
+  onChange(v: string): void;
+}
+
+export function TweetBoxText({ value, onChange }: ITweetBoxTextProp) {
   return (
     <input
       placeholder="What's going on?"
@@ -54,7 +59,12 @@ export function TweetBoxText({ value, onChange }) {
   );
 }
 
-export function TweetBoxImage({ value, onChange }) {
+interface ITweetBoxImageProp {
+  value: string,
+  onChange(v: string): void;
+}
+
+export function TweetBoxImage({ value, onChange }: ITweetBoxImageProp) {
   const cssClasses = useStyles();
 
   return (
@@ -68,7 +78,11 @@ export function TweetBoxImage({ value, onChange }) {
   );
 }
 
-export function TweetBoxTweetButton({ onClick }) {
+interface ITweetBoxTweetButtonProp {
+  onClick(): void;
+}
+
+export function TweetBoxTweetButton({ onClick }: ITweetBoxTweetButtonProp) {
   const cssClasses = useStyles();
 
   return (
@@ -91,23 +105,23 @@ export function TweetBox() {
   const [tweetImageURL, setTweetImageURL] = useState('');
   const avatarURL = 'https://pbs.twimg.com/profile_images/1438003019887611905/MnOz3sOj_400x400.jpg';
 
-  function handleTweetTextChange(value) {
+  function handleTweetTextChange(value: string): void {
     setTweetText(value);
   }
 
-  function handleTweetImageChange(value) {
+  function handleTweetImageChange(value: string): void {
     setTweetImageURL(value);
   }
 
-  function handleSendTweet() {
-    const post = postDoc({
+  function handleSendTweet(): void {
+    const post: IPostDoc = {
       displayName: 'Elon Musk',
       userName: 'elonmusk',
       wasVerified: true,
       text: tweetText,
       imageLink: tweetImageURL,
       avatarLink: avatarURL
-    });
+    };
 
     postService.addPost(post);
     handleTweetTextChange('');

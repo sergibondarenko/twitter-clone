@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TweetBox } from './TweetBox';
 import { Post } from './Post';
 import { PostService } from '../../services';
-import { postDoc } from './postDoc';
+import { IPostDocWithId } from '../../services/PostDoc';
 import { mainBackgroundColor } from '../../constants/css';
 
 const useStyles = makeStyles({
@@ -33,15 +33,17 @@ const useStyles = makeStyles({
   }
 });
 
-export function Posts({ posts }) {
+interface IPostsProp {
+  posts: IPostDocWithId[]
+}
+
+export function Posts({ posts }: IPostsProp): JSX.Element | null {
   if (!posts || !posts.length) return null;
   
   return (
     <FlipMove>
-      {posts.map((post) => {
-        return (
-          <Post key={post.id} {...postDoc({ ...post })} />
-        );
+      {posts.map(({ id: key, ...props }: IPostDocWithId) => {
+        return <Post key={key} {...props} />;
       })}
     </FlipMove>
   );
@@ -49,7 +51,7 @@ export function Posts({ posts }) {
 
 export function Feed() {
   const cssClasses = useStyles();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<IPostDocWithId[]>([]);
   const postService = new PostService();
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export function Feed() {
   }, []);
 
   function subToAllPosts() {
-    return postService.subscibeToAllPosts((docs) => {
+    return postService.subscribeToAllPosts((docs: IPostDocWithId[]) => {
       setPosts(docs);
     });
   }

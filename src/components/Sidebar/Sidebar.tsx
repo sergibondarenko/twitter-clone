@@ -27,8 +27,8 @@ const useStyles = makeStyles({
     backgroundColor: `${mainColor} !important`,
     border: 'none !important',
     color: 'white !important',
-    fontWeight: '900 !important',
-    textTransform: 'inherit !important',
+    fontWeight: '900 !important' as any,
+    textTransform: 'inherit !important' as any,
     borderRadius: '30px !important',
     height: '50px !important',
     marginTop: '20px !important'
