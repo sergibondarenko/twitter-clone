@@ -22,7 +22,8 @@ const useStyles = makeStyles({
     padding: '10px',
     '& img': {
       borderRadius: '20px',
-      width: '100%'
+      width: '100%',
+      maxWidth: 500
     }
   },
   post__footer: {
