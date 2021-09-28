@@ -66,7 +66,7 @@ export function Feed() {
 
   function subToAllPosts() {
     return postService.subscribeToAllPosts((docs: IPostDocWithId[]) => {
-      setPosts(docs);
+      setPosts(docs.sort((a, b) => b.timestamp - a.timestamp));
     });
   }
 

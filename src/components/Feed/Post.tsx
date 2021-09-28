@@ -62,6 +62,7 @@ interface IPostProp {
   text: string;
   imageLink: string;
   avatarLink: string;
+  timestamp: number;
 }
 
 export const Post = forwardRef(({
@@ -70,9 +71,11 @@ export const Post = forwardRef(({
   wasVerified,
   text,
   imageLink,
-  avatarLink
+  avatarLink,
+  timestamp
 }: IPostProp, ref: any) => {
   const cssClasses = useStyles();
+  const postDate: string = new Date(timestamp).toLocaleString();
 
   return (
     <div className={cssClasses.post} ref={ref}>
@@ -84,7 +87,7 @@ export const Post = forwardRef(({
           <div className={cssClasses.post__headerText}>
             <h3>
               {displayName} <span className={cssClasses.post__headerSpecial}>
-                {wasVerified && <VerifiedUserIcon className={cssClasses.post__badge} />}{userName}
+                {wasVerified && <VerifiedUserIcon className={cssClasses.post__badge} />}{userName}{" "}{postDate}
               </span>
             </h3>
           </div>

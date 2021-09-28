@@ -5,14 +5,9 @@ export interface IPostDoc {
   text: string;
   imageLink: string;
   avatarLink: string;
+  timestamp: number;
 }
 
-export interface IPostDocWithId {
+export interface IPostDocWithId extends IPostDoc {
   id: string;
-  displayName: string;
-  userName: string;
-  wasVerified: boolean;
-  text: string;
-  imageLink: string;
-  avatarLink: string;
 }

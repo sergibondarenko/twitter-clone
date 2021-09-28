@@ -120,7 +120,8 @@ export function TweetBox() {
       wasVerified: true,
       text: tweetText,
       imageLink: tweetImageURL,
-      avatarLink: avatarURL
+      avatarLink: avatarURL,
+      timestamp: new Date().getTime()
     };
 
     postService.addPost(post);
